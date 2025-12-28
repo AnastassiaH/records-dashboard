@@ -4,6 +4,7 @@
       "firstName": "Admin",
       "lastName": "User",
       "email": "admin@test.com",
+      "password": "admin123",
       "role": "admin",
       "id": "1"
     },

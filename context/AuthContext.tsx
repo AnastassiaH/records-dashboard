@@ -21,22 +21,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initAuth = () => {
       try {
-        const token = localStorage.getItem('fakeAccessToken');
-        const userData = localStorage.getItem('userData');
-
-        if (token && userData) {
-          const parsedUser = JSON.parse(userData);
+        const { userData } = authService.getCurrentUser();
+        if (userData) {
           setUser({
-            id: parsedUser.id,
-            email: parsedUser.email || '',
-            firstName: parsedUser.firstName || '',
-            lastName: parsedUser.lastName || '',
-            role: parsedUser.role || 'user',
-            password: parsedUser.password || '',
+            id: userData.id,
+            email: userData.email || '',
+            firstName: userData.firstName || '',
+            lastName: userData.lastName || '',
+            role: userData.role || 'user',
           });
         }
       } catch (error) {
         console.error('Auth initialization error:', error);
+        authService.logout();
       } finally {
         setLoading(false);
       }

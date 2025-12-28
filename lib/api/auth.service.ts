@@ -2,11 +2,18 @@ import axiosInstance from '../axios';
 import { User } from '@/types';
 
 export const authService = {
-  async login(email: string, password: string): Promise<User | null> {
-    const response = await axiosInstance.get<User[]>(
-      `/users?email=${email}&password=${password}`
-    );
-    return response.data.length > 0 ? response.data[0] : null;
+  async login(email: string, password: string): Promise<Omit<User, 'password'> | null> {
+    const response = await axiosInstance.get<User[]>(`/users?email=${email}`);
+    if (response.data.length === 0) return null;
+
+    const user = response.data[0];
+
+    if (user.password !== password) {
+      return null;
+    }
+
+    const { password: _, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   },
 
   logout() {
@@ -17,7 +24,8 @@ export const authService = {
   },
 
   getCurrentUser(): { userId: string | null; role: string | null; userData: User | null } {
-    if (typeof window === 'undefined') {
+    const token = localStorage.getItem('fakeAccessToken');
+    if (!token) {
       return { userId: null, role: null, userData: null };
     }
     const userData = localStorage.getItem('userData');
