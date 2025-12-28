@@ -1,5 +1,16 @@
 # records-dashboard
-# Project run instructions
+
+## Login Credentials
+
+### Admin User
+- Email: admin@test.com
+- Password: admin123
+
+### Regular User
+- Email: user@test.com
+- Password: password123
+
+## Project run instructions
 
 To run the project locally, install dependencies and start both the frontend and the mock backend.
 
