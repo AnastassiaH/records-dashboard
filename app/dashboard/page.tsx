@@ -20,7 +20,10 @@ export default function DashboardPage() {
           Role: {user?.role}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-          Use the sidebar to navigate to Users or Records sections.
+          {user?.role === 'admin'
+            ? 'Use the sidebar to navigate to Users or Records sections.'
+            : 'Use the sidebar to navigate to the Records section.'
+          }
         </Typography>
       </Paper>
     </Box>
