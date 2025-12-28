@@ -47,7 +47,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const userData = await authService.login(email, password);
       if (userData) {
         localStorage.setItem('fakeAccessToken', 'fake-token-' + Date.now());
-        // Store user data without password
         localStorage.setItem('userData', JSON.stringify(userData));
         setUser(userData);
         return true;
